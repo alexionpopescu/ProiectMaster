@@ -1,0 +1,85 @@
+﻿@model RetailerVM
+
+@{
+    string action = "";
+    var isNew = (bool)ViewBag.IsNew;
+    if (isNew)
+        action = "/Retailer/New";
+    else
+        action = string.Format("/Retailer/Edit/{0}", Model.Id);
+}
+
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10 table-round bg-light shadow">
+
+        <br />
+        <h4>Product type</h4>
+        <br />
+
+        <div class="col-xl-12">
+
+            <input asp-for="Id" hidden />
+
+            <form action="@action" method="post" enctype="multipart/form-data">
+
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <br />
+                <div class="row">
+
+                    <div class="col-sm-12 col-lg-12">
+
+                        <div class="row">
+
+                            <div class="col-xs-12 col-sm-2">
+                                <label class="control-label font-weight-bold">Retailer name</label>
+                            </div>
+
+                            <div class="col-xs-12 col-sm-4">
+                                <input asp-for="Name" class="form-control" /><br />
+                                <span asp-validation-for="Name" class="text-danger"></span>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-xs-12 col-sm-2">
+                                <label class="control-label font-weight-bold">Product type</label>
+                            </div>
+
+                            <div class="col-xs-12 col-sm-4">
+                                @Html.DropDownList("ProductTypeId", new SelectList(Model.ProductTypes, "Id", "Name", Model.ProductTypeId), new { @class = "form-control" })
+                            </div>
+
+                        </div>
+
+                        <br />
+
+                        <div class="row">
+
+                            <div class="col-xs-12 col-sm-2">
+                                <label class="control-label font-weight-bold">Description</label>
+                            </div>
+
+                            <div class="col-xs-12 col-sm-10">
+                                @Html.TextArea("Description", Model.Description, new { @class = "form-control" })
+                                <span asp-validation-for="Description" class="text-danger"></span>
+                            </div>
+
+                        </div>
+
+                        <br />
+
+                    </div>
+
+                    @await Html.PartialAsync(@"_CancelSaveBtn.cshtml");
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+</div>

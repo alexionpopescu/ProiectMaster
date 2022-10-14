@@ -1,0 +1,9 @@
+﻿@model RetailerVM
+
+@{
+    ViewData["Title"] = "Create a retailer";
+}
+
+@{ ViewBag.IsNew = true;}
+
+@await Html.PartialAsync(@"../Shared/Components/_Retailer.cshtml")
